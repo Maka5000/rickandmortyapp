@@ -80,7 +80,6 @@ watch(
         imgmaxwidth="100px"
         gridcols="4"
       />
-      <!-- <Pagination :infoPages="apiInfo.pages"/> -->
       <v-pagination
         :length="apiInfo.pages"
         total-visible="7"
