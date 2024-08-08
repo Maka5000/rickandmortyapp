@@ -127,9 +127,4 @@ section :deep(p) {
 section :deep(p > span) {
   font-weight: 700;
 }
-
-/* episodes */
-:deep(.char-episodes-list) {
-  margin-top: 25px;
-}
 </style>

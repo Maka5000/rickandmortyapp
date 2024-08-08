@@ -1,6 +1,6 @@
 <script setup>
 import { watch, ref, reactive } from "vue";
-import CharacterList from "./ui/CharacterList.vue";
+import DataList from "./ui/DataList.vue";
 
 const props = defineProps(["origin"]);
 
@@ -52,10 +52,10 @@ watch(
       "
     >
       <h3>Residents:</h3>
-      <CharacterList
-        :residentspropsarr="originData.value.residents"
-        imgmaxwidth="60px"
-        gridcols="3"
+      <DataList
+        :residentsArr="originData.value.residents"
+        imgMaxWidth="60px"
+        gridCols="3"
       />
     </div>
   </section>

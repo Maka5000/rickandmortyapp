@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import CharacterList from "../components/ui/CharacterList.vue";
+import DataList from "../components/ui/DataList.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -56,11 +56,12 @@ watch(
     loading.value = true;
 
     try {
-      const data = await getCharacters(route.query.page);
-      characters.data = data.results;
-      apiInfo.value = data.info;
+      const fetchedData = await getCharacters(currentPage.value);
+      characters.data = fetchedData.results;
+      apiInfo.value = fetchedData.info;
     } catch (err) {
       error.value = err.toString();
+      console.log(err);
     } finally {
       loading.value = false;
     }
@@ -74,22 +75,22 @@ watch(
     <h2 class="page-title">Characters</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
     <div v-if="error">Error</div>
-    <div v-if="characters.data.length">
-      <CharacterList
-        :arraydata="characters.data"
-        imgmaxwidth="100px"
-        gridcols="4"
-      />
-      <v-pagination
-        :length="apiInfo.pages"
-        total-visible="7"
-        @next="nextPage"
-        @prev="prevPage"
-        v-model="currentPage"
-        @update:modelValue="goPage"
-        class="mt-7"
-      ></v-pagination>
-    </div>
+    <DataList
+      v-if="characters.data.length > 0"
+      :charactersArr="characters.data"
+      gridCols="4"
+      imgMaxWidth="100px"
+    />
+    <v-pagination
+      v-if="characters.data.length > 0"
+      :length="apiInfo.pages"
+      total-visible="7"
+      @next="nextPage"
+      @prev="prevPage"
+      v-model="currentPage"
+      @update:modelValue="goPage"
+      class="mt-7"
+    ></v-pagination>
   </div>
 </template>
 
@@ -102,7 +103,7 @@ div {
   font-size: 50px;
 }
 
-:deep(.char-list) {
+:deep(.data-list) {
   margin-top: 50px;
 }
 </style>

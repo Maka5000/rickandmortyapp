@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CharacterView from "../views/CharacterView.vue";
-import CharacterList from "../components/ui/CharacterList.vue";
-import LocationSection from "../components/LocationSection.vue";
+// import LocationSection from "../components/LocationSection.vue";
+// import EpisodesView from "../views/EpisodesView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,20 +14,18 @@ const router = createRouter({
     },
     {
       path: "/character/:id",
-      name : "character-view",
+      name: "character-view",
       component: CharacterView,
     },
-    {
-      path: "/episodes",
-      name : "episodes-view",
-      component : CharacterList,
-      children : [
-        {
-          path : ':id',
-          component : LocationSection
-        }
-      ]
-    }
+    // {
+    //   path: "/episodes",
+    //   name: "episodes-view",
+    //   component: EpisodesView,
+    // },
+    // {
+    //   path: "/episode/:id",
+    //   component: LocationSection,
+    // },
   ],
 });
 

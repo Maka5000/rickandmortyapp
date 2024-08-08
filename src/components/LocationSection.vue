@@ -1,6 +1,6 @@
 <script setup>
 import { watch, ref, reactive } from "vue";
-import CharacterList from "./ui/CharacterList.vue";
+import DataList from "./ui/DataList.vue";
 
 const props = defineProps(["location"]);
 
@@ -61,11 +61,7 @@ watch(
       "
     >
       <h3>Residents:</h3>
-      <CharacterList
-        :residentspropsarr="locationData.value.residents"
-        imgmaxwidth="60px"
-        gridcols="3"
-      />
+      <DataList :residentsArr="locationData.value.residents" gridCols="3" imgMaxWidth="60px"/>
     </div>
   </section>
 </template>
