@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import DataList from "../components/ui/DataList.vue";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
@@ -10,19 +10,21 @@ if (!route.query.page) {
   router.push({ query: { page: 1 } });
 }
 
-const currentPage = ref(null);
+const currentPage = ref(0);
 
 const apiInfo = ref(null);
-const characters = reactive({ data: [] });
+const episodes = reactive({ data: [] });
 
 const loading = ref(false);
 const error = ref(null);
 
-async function getCharacters(page) {
+async function getEpisodes(page) {
   const response = await fetch(
-    `https://rickandmortyapi.com/api/character?page=${page}`
+    `https://rickandmortyapi.com/api/episode?page=${page}`
   );
   const json = await response.json();
+
+  console.log("episodesHome fetched");
 
   return json;
 }
@@ -54,11 +56,10 @@ watch(
   async () => {
     currentPage.value = Number(route.query.page);
     loading.value = true;
-
     try {
-      const fetchedData = await getCharacters(currentPage.value);
-      characters.data = fetchedData.results;
-      apiInfo.value = fetchedData.info;
+      const fetchData = await getEpisodes(currentPage.value);
+      episodes.data = fetchData.results;
+      apiInfo.value = fetchData.info;
     } catch (err) {
       error.value = err.toString();
       console.log(err);
@@ -72,22 +73,21 @@ watch(
 
 <template>
   <div>
-    <h2 class="page-title">Characters</h2>
+    <h2 class="page-title">Episodes</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
     <div v-if="error">Error</div>
     <DataList
-      v-if="characters.data.length > 0 && loading === false"
-      :charactersArr="characters.data"
+      v-if="episodes.data.length > 0 && loading === false"
+      :episodesArr="episodes.data"
       gridCols="4"
-      imgMaxWidth="100px"
     />
     <v-pagination
-      v-if="characters.data.length > 0"
+      v-if="episodes.data.length > 0"
       :length="apiInfo.pages"
-      total-visible="7"
+      total-visivle="7"
+      v-model="currentPage"
       @next="nextPage"
       @prev="prevPage"
-      v-model="currentPage"
       @update:modelValue="goPage"
       class="mt-7"
     ></v-pagination>
@@ -103,7 +103,19 @@ div {
   font-size: 50px;
 }
 
+:deep(.list-item-link) {
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-wrap: pretty;
+}
+
 :deep(.data-list) {
   margin-top: 50px;
+}
+
+:deep(.item-name) {
+  flex-grow: 0;
 }
 </style>
