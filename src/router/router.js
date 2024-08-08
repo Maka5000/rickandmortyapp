@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CharacterView from "../views/CharacterView.vue";
 import EpisodesView from "../views/EpisodesView.vue";
+import SingleEpisodeView from "../views/SingleEpisodeView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,10 +22,10 @@ const router = createRouter({
       name: "episodes-view",
       component: EpisodesView,
     },
-    // {
-      // path: "/episode/:id",
-      // component: LocationSection,
-    // },
+    {
+      path: "/episode/:id",
+      component: SingleEpisodeView,
+    },
   ],
 });
 

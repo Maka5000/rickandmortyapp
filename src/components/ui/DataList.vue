@@ -18,6 +18,10 @@ const props = defineProps({
     type: Array,
     required: false,
   },
+  episodeCharsArr: {
+    type: Array,
+    required: false,
+  },
   gridCols: {
     type: String,
     required: false,
@@ -59,7 +63,7 @@ watchEffect(() => {
   }
 
   if (props.episodesArr) {
-    itemURL.value = "/episode/"
+    itemURL.value = "/episode/";
     if (!props.episodesArr[0].name) {
       try {
         const chunkedArray = chunkArray(props.episodesArr, 6);
@@ -83,7 +87,7 @@ watchEffect(() => {
   }
 
   if (props.residentsArr) {
-    itemURL.value = "/character/"
+    itemURL.value = "/character/";
     try {
       const chunkedArray = chunkArray(props.residentsArr, 6);
 
@@ -105,6 +109,25 @@ watchEffect(() => {
     iterableData.array = props.locationArr;
     return;
   }
+
+  if (props.episodeCharsArr) {
+    itemURL.value = "/character/";
+    try {
+      const chunkedArray = chunkArray(props.episodeCharsArr, 6);
+
+      totalPages.value = chunkedArray.length - 1;
+
+      iterableData.array = [];
+
+      chunkedArray[currentPage.value].forEach(async (episodeCharUrl) => {
+        iterableData.array.push(await getData(episodeCharUrl));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return;
+  }
 });
 </script>
 
@@ -123,7 +146,9 @@ watchEffect(() => {
           class="list-item-img"
         />
         <h2 class="item-name">{{ item.name }}</h2>
-        <span class="item-episode" v-if="item.episode instanceof Array === false">{{ item.episode }}</span>
+        <span class="item-episode" v-if="item.air_date"
+          >Aired: {{ item.air_date }}</span
+        >
       </RouterLink>
     </li>
   </ul>
@@ -157,6 +182,10 @@ watchEffect(() => {
   line-height: normal;
   font-size: 1.3rem;
   font-weight: 400;
+}
+
+.item-episode {
+  font-weight: 700;
 }
 
 .list-item-link {
