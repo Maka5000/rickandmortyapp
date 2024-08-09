@@ -23,4 +23,8 @@ const props = defineProps(["arraydata", "gridcols"]);
   justify-content: center;
   text-wrap: pretty;
 }
+
+:deep(.item-name) {
+  flex-grow: 0;
+}
 </style>

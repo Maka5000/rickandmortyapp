@@ -37,7 +37,7 @@ watch(
 </script>
 
 <template>
-  <div v-if="loading" class="loading">Loading...</div>
+  <v-progress-circular class="mt-25" v-if="loading" indeterminate></v-progress-circular>
   <div v-if="error" class="error">Error</div>
   <div v-if="character" class="char-container">
     <img class="char-image" :src="character.image" :alt="character.name" />
@@ -46,6 +46,9 @@ watch(
       <ul class="char-info-list">
         <li class="char-list-item">
           <span>Species: </span>{{ character.species }}
+        </li>
+        <li class="char-list-item" v-if="character.type">
+          <span>Type: </span>{{ character.type }}
         </li>
         <li class="char-list-item">
           <span>Gender: </span>{{ character.gender }}

@@ -14,7 +14,7 @@ const props = defineProps({
     type: Array,
     required: false,
   },
-  locationArr: {
+  locationsArr: {
     type: Array,
     required: false,
   },
@@ -105,8 +105,9 @@ watchEffect(() => {
     return;
   }
 
-  if (props.locationArr) {
-    iterableData.array = props.locationArr;
+  if (props.locationsArr) {
+    itemURL.value = "/location/"
+    iterableData.array = props.locationsArr;
     return;
   }
 
@@ -149,6 +150,7 @@ watchEffect(() => {
         <span class="item-episode" v-if="item.air_date"
           >Aired: {{ item.air_date }}</span
         >
+        <span class="item-type" v-if="item.type && locationsArr">Type: {{ item.type }}</span>
       </RouterLink>
     </li>
   </ul>

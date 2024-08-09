@@ -1,0 +1,98 @@
+<script setup>
+import { useRoute } from "vue-router";
+import { ref, watch } from "vue";
+import DataList from "../components/ui/DataList.vue";
+
+const location = ref(null);
+const route = useRoute();
+
+const loading = ref(false);
+const error = ref(null);
+
+async function getLocationByID(id) {
+  const response = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
+  const json = await response.json();
+
+  return json;
+}
+
+watch(
+  () => route.params.id,
+  async () => {
+    loading.value = true;
+
+    try {
+      location.value = await getLocationByID(route.params.id);
+    } catch (err) {
+      error.value = err.toString();
+      console.log(err);
+    } finally {
+      loading.value = false;
+    }
+  },
+  { immediate: true }
+);
+</script>
+
+<template>
+  <div v-if="error">Error</div>
+  <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
+  <div v-if="location && !loading" class="location-container">
+    <div class="location-info">
+      <h2 class="location-name">{{ location.name }}</h2>
+      <ul class="location-info-list">
+        <li class="location-list-item">
+          <span>Type: </span> {{ location.type }}
+        </li>
+        <li class="location-list-item">
+          <span>Dimension: </span> {{ location.dimension }}
+        </li>
+      </ul>
+    </div>
+    <section>
+      <h2 class="title">Residents</h2>
+      <DataList
+        :residentsArr="location.residents"
+        imgMaxWidth="60px"
+        gridCols="3"
+      />
+    </section>
+  </div>
+</template>
+
+<style scoped>
+.location-container {
+  max-width: 800px;
+  margin-top: 50px;
+}
+
+.location-name {
+  font-size: 4rem;
+}
+
+.location-info-list {
+  list-style-type: none;
+  text-align: start;
+}
+
+.location-list-item {
+  font-size: 2rem;
+}
+
+.location-list-item > span {
+  font-weight: 700;
+}
+
+section {
+  margin-top: 25px;
+}
+
+.title {
+  font-size: 3rem;
+  border-bottom: 2px solid black;
+}
+
+:deep(.data-list) {
+  margin-top: 25px;
+}
+</style>
