@@ -72,7 +72,7 @@ watch(
 </script>
 
 <template>
-  <div>
+  <div class="main_div">
     <h2 class="page-title">Episodes</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
     <div v-if="error">Error</div>

@@ -89,7 +89,9 @@ watch(
 }
 
 .char-name {
-  font-size: 4rem;
+  font-size: 3rem;
+  line-height: normal;
+  margin-bottom: 15px;
 }
 
 .char-list-item {
@@ -129,5 +131,28 @@ section :deep(p) {
 
 section :deep(p > span) {
   font-weight: 700;
+}
+
+@media only screen and (max-width: 1060px) {
+  .char-image {
+    grid-column: span 2;
+    justify-self: center;
+  }
+
+  .char-info {
+    grid-column: span 2;
+    justify-self: center;
+  }
+}
+
+@media only screen and (max-width: 825px) {
+  .char-container {
+    margin-top: 70px;
+    max-width: 350px;
+  }
+
+  .char-info {
+    margin-bottom: 15px;
+  }
 }
 </style>

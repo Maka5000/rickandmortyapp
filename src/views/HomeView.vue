@@ -24,6 +24,8 @@ async function getCharacters(page) {
   );
   const json = await response.json();
 
+  console.log("fetched home");
+
   return json;
 }
 
@@ -71,7 +73,7 @@ watch(
 </script>
 
 <template>
-  <div>
+  <div class="main_div">
     <h2 class="page-title">Characters</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
     <div v-if="error">Error</div>
@@ -84,7 +86,7 @@ watch(
     <v-pagination
       v-if="characters.data.length > 0"
       :length="apiInfo.pages"
-      total-visible="7"
+      total-visible="5"
       @next="nextPage"
       @prev="prevPage"
       v-model="currentPage"
@@ -95,12 +97,8 @@ watch(
 </template>
 
 <style scoped>
-div {
-  margin-top: 50px;
-}
-
 .page-title {
-  font-size: 50px;
+  font-size: var(--text-size-large);
 }
 
 :deep(.data-list) {

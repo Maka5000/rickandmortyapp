@@ -106,7 +106,7 @@ watchEffect(() => {
   }
 
   if (props.locationsArr) {
-    itemURL.value = "/location/"
+    itemURL.value = "/location/";
     iterableData.array = props.locationsArr;
     return;
   }
@@ -150,7 +150,9 @@ watchEffect(() => {
         <span class="item-episode" v-if="item.air_date"
           >Aired: {{ item.air_date }}</span
         >
-        <span class="item-type" v-if="item.type && locationsArr">Type: {{ item.type }}</span>
+        <span class="item-type" v-if="item.type && locationsArr"
+          >Type: {{ item.type }}</span
+        >
       </RouterLink>
     </li>
   </ul>
@@ -159,6 +161,7 @@ watchEffect(() => {
     :length="totalPages"
     v-model="currentPage"
     class="mt-5"
+    total-visible="5"
   ></v-pagination>
 </template>
 
@@ -202,5 +205,32 @@ watchEffect(() => {
 .list-item-link:hover {
   background-color: var(--color-main);
   color: var(--color-themed);
+}
+
+@media only screen and (max-width: 1530px) {
+  ul.data-list {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .list-item-img {
+    max-width: 80px !important;
+  }
+}
+
+@media only screen and (max-width: 1420px) {
+  ul.data-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  ul.data-list {
+    grid-template-columns: 1fr !important;
+    margin-top: 20px;
+  }
+
+  .list-item-img {
+    max-width: 40px !important;
+  }
 }
 </style>

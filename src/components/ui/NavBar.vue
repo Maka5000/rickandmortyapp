@@ -1,14 +1,25 @@
-<script setup lang="ts">
+<script setup>
+import { onMounted, onUnmounted, ref } from "vue";
 import { RouterLink } from "vue-router";
+
+const sidebarNav = ref(null);
+
+function openNav() {
+  sidebarNav.value.classList.toggle("active");
+}
 </script>
 
 <template>
   <div class="sidebar">
     <div class="logo">
-      <!-- <img src="/portal.png" alt="portal"> -->
       <h1 class="sidebar-title">Rick and Morty</h1>
     </div>
-    <nav class="sidebar-nav">
+    <div class="menu-burger" @click="openNav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="sidebar-nav" ref="sidebarNav">
       <ul class="nav-list">
         <li class="nav-list-item">
           <RouterLink to="/">Home</RouterLink>
@@ -25,6 +36,10 @@ import { RouterLink } from "vue-router";
 </template>
 
 <style scoped>
+.menu-burger {
+  display: none;
+}
+
 .sidebar {
   background-color: var(--color-main);
 }
@@ -46,13 +61,14 @@ img {
 }
 
 .sidebar-title {
-  font-size: 50px;
+  font-size: var(--text-size-large);
   color: black;
+  text-align: center;
 }
 
 .nav-list {
   list-style-type: none;
-  font-size: 40px;
+  font-size: var(--text-size-big);
   text-align: center;
   background-color: var(--color-main);
   display: flex;
@@ -81,5 +97,64 @@ img {
 .nav-list-item > .router-link-active {
   background-color: var(--color-themed);
   color: var(--color-main);
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 825px) {
+  .sidebar {
+    display: flex !important;
+    padding: 5px 15px;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+  }
+
+  .logo {
+    display: block;
+    height: auto;
+    border-radius: 25px;
+    background-color: var(--color-main);
+  }
+
+  .logo > h1 {
+    color: var(--color-themed);
+  }
+
+  .menu-burger {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 40px;
+    justify-content: space-evenly;
+    cursor: pointer;
+  }
+
+  .menu-burger:hover {
+    opacity: 50%;
+  }
+
+  .menu-burger > span {
+    background-color: var(--color-themed);
+    width: 100%;
+    height: 5px;
+    border-radius: 15px;
+  }
+
+  .sidebar-nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+  }
+
+  .sidebar-nav.active {
+    display: block;
+  }
+
+  .nav-list {
+    margin-top: 0;
+    padding: 15px;
+  }
 }
 </style>

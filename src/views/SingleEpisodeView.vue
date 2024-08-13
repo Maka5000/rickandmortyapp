@@ -67,7 +67,7 @@ watch(
 }
 
 .episode-name {
-  font-size: 4rem;
+  font-size: var(--text-size-extra);
 }
 
 .episode-info-list {
@@ -76,7 +76,7 @@ watch(
 }
 
 .episode-list-item {
-  font-size: 2rem;
+  font-size: var(--text-size-big);
 }
 
 .episode-list-item > span {
@@ -88,7 +88,7 @@ section {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: var(--text-size-medium-large);
   border-bottom: 2px solid black;
 }
 
