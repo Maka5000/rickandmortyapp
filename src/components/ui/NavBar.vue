@@ -7,13 +7,29 @@ const sidebarNav = ref(null);
 function openNav() {
   sidebarNav.value.classList.toggle("active");
 }
+
+function closeNav() {
+  if (sidebarNav.value.classList.contains("active")) {
+    sidebarNav.value.classList.remove("active");
+  }
+}
+
+onMounted(() => {
+  const mainElement = document.querySelector("main");
+  mainElement.addEventListener("click", closeNav);
+});
+
+onUnmounted(() => {
+  const mainElement = document.querySelector("main");
+  mainElement.removeEventListener("click", closeNav);
+});
 </script>
 
 <template>
   <div class="sidebar">
-    <div class="logo">
+    <RouterLink to="/" class="logo">
       <h1 class="sidebar-title">Rick and Morty</h1>
-    </div>
+    </RouterLink>
     <div class="menu-burger" @click="openNav">
       <span></span>
       <span></span>
@@ -53,6 +69,8 @@ function openNav() {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 img {
@@ -92,6 +110,10 @@ img {
   cursor: pointer;
   background-color: var(--color-themed);
   color: var(--color-main);
+}
+
+.logo.router-link-active {
+  pointer-events: none;
 }
 
 .nav-list-item > .router-link-active {

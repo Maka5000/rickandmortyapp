@@ -101,7 +101,8 @@ footer {
 
 @media only screen and (max-width: 825px) {
   .container {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   :deep(.sidebar) {
@@ -115,6 +116,10 @@ footer {
 
   :deep(.page-title) {
     font-size: 3rem;
+  }
+
+  .footer-list {
+    justify-content: center;
   }
 }
 </style>

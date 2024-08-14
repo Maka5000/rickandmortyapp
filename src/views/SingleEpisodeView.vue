@@ -95,4 +95,11 @@ section {
 :deep(.data-list) {
   margin-top: 25px;
 }
+
+@media only screen and (max-width: 825px) {
+  .episode-container {
+    max-width: 350px;
+    margin-top: 70px;
+  }
+}
 </style>

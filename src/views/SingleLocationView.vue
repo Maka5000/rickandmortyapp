@@ -67,7 +67,7 @@ watch(
 }
 
 .location-name {
-  font-size: 4rem;
+  font-size: var(--text-size-extra);
 }
 
 .location-info-list {
@@ -88,11 +88,18 @@ section {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: var(--text-size-medium-large);
   border-bottom: 2px solid black;
 }
 
 :deep(.data-list) {
   margin-top: 25px;
+}
+
+@media only screen and (max-width: 825px) {
+  .location-container {
+    max-width: 350px;
+    margin-top: 70px;
+  }
 }
 </style>
