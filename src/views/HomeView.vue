@@ -2,6 +2,7 @@
 import { reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import DataList from "../components/ui/DataList.vue";
+import ErrorPage from "../components/ui/ErrorPage.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -22,6 +23,13 @@ async function getCharacters(page) {
   const response = await fetch(
     `https://rickandmortyapi.com/api/character?page=${page}`
   );
+
+  if (!response.ok) {
+    const statusMsg =
+      response.status === 404 ? "Page not found!" : response.statusText;
+    throw new Error(`${response.status} - ${statusMsg}`);
+  }
+
   const json = await response.json();
 
   console.log("fetched home");
@@ -63,7 +71,6 @@ watch(
       apiInfo.value = fetchedData.info;
     } catch (err) {
       error.value = err.toString();
-      console.log(err);
     } finally {
       loading.value = false;
     }
@@ -76,7 +83,7 @@ watch(
   <div class="main_div">
     <h2 class="page-title">Characters</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
-    <div v-if="error">Error</div>
+    <ErrorPage v-if="error" :errMsg="error" />
     <DataList
       v-if="characters.data.length > 0 && loading === false"
       :charactersArr="characters.data"

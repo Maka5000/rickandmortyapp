@@ -2,6 +2,7 @@
 import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
 import DataList from "../components/ui/DataList.vue";
+import ErrorPage from "../components/ui/ErrorPage.vue";
 
 const location = ref(null);
 const route = useRoute();
@@ -10,7 +11,16 @@ const loading = ref(false);
 const error = ref(null);
 
 async function getLocationByID(id) {
-  const response = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
+  const response = await fetch(
+    `https://rickandmortyapi.com/api/location/${id}`
+  );
+
+  if (!response.ok) {
+    const statusMsg =
+      response.status === 404 ? "Page not found!" : response.statusText;
+    throw new Error(`${response.status} - ${statusMsg}`);
+  }
+
   const json = await response.json();
 
   return json;
@@ -25,7 +35,6 @@ watch(
       location.value = await getLocationByID(route.params.id);
     } catch (err) {
       error.value = err.toString();
-      console.log(err);
     } finally {
       loading.value = false;
     }
@@ -35,7 +44,7 @@ watch(
 </script>
 
 <template>
-  <div v-if="error">Error</div>
+  <ErrorPage v-if="error" :errMsg="error" />
   <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
   <div v-if="location && !loading" class="location-container">
     <div class="location-info">

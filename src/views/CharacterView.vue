@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import OriginSection from "../components/OriginSection.vue";
 import LocationSection from "../components/LocationSection.vue";
 import EpisodesSection from "../components/EpisodesSection.vue";
+import ErrorPage from "../components/ui/ErrorPage.vue";
 
 const route = useRoute();
 const character = ref(null);
@@ -14,6 +15,13 @@ async function getCharByID(id) {
   const response = await fetch(
     `https://rickandmortyapi.com/api/character/${id}`
   );
+
+  if (!response.ok) {
+    const statusMsg =
+      response.status === 404 ? "Page not found!" : response.statusText;
+    throw new Error(`${response.status} - ${statusMsg}`);
+  }
+
   const json = await response.json();
 
   return json;
@@ -38,7 +46,7 @@ watch(
 
 <template>
   <v-progress-circular class="mt-25" v-if="loading" indeterminate></v-progress-circular>
-  <div v-if="error" class="error">Error</div>
+  <ErrorPage v-if="error" :errMsg="error" />
   <div v-if="character" class="char-container">
     <img class="char-image" :src="character.image" :alt="character.name" />
     <div class="char-info">
