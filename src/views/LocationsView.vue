@@ -32,6 +32,8 @@ async function getLocations(page) {
 
   const json = await response.json();
 
+  // console.log("location home fetched")
+
   return json;
 }
 
@@ -72,7 +74,7 @@ watch(
       loading.value = false;
     }
   },
-  { immediate: true }
+  {immediate : route.query.page ? true : false}
 );
 </script>
 

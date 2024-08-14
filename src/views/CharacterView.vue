@@ -22,6 +22,8 @@ async function getCharByID(id) {
     throw new Error(`${response.status} - ${statusMsg}`);
   }
 
+  // console.log("characterview fetched")
+  
   const json = await response.json();
 
   return json;

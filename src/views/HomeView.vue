@@ -11,7 +11,7 @@ if (!route.query.page) {
   router.push({ query: { page: 1 } });
 }
 
-const currentPage = ref(null);
+const currentPage = ref(0);
 
 const apiInfo = ref(null);
 const characters = reactive({ data: [] });
@@ -32,7 +32,7 @@ async function getCharacters(page) {
 
   const json = await response.json();
 
-  console.log("fetched home");
+  // console.log("fetched home");
 
   return json;
 }
@@ -75,7 +75,7 @@ watch(
       loading.value = false;
     }
   },
-  { immediate: true }
+  {immediate : route.query.page ? true : false}
 );
 </script>
 

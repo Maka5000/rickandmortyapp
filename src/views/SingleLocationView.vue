@@ -21,6 +21,8 @@ async function getLocationByID(id) {
     throw new Error(`${response.status} - ${statusMsg}`);
   }
 
+  // console.log("singLoc fetched");
+
   const json = await response.json();
 
   return json;

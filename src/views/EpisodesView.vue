@@ -32,7 +32,7 @@ async function getEpisodes(page) {
 
   const json = await response.json();
 
-  console.log("episodesHome fetched");
+  // console.log("episodesHome fetched");
 
   return json;
 }
@@ -74,7 +74,7 @@ watch(
       loading.value = false;
     }
   },
-  { immediate: true }
+  {immediate : route.query.page ? true : false}
 );
 </script>
 

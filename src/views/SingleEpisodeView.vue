@@ -19,6 +19,8 @@ async function getEpisodeByID(id) {
     throw new Error(`${response.status} - ${statusMsg}`);
   }
 
+  // console.log("singleEp fetched")
+
   const json = await response.json();
 
   return json;
