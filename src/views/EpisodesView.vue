@@ -122,6 +122,10 @@ div {
   margin-top: 50px;
 }
 
+:deep(.v-pagination__list:not(:has(.v-pagination__item))) {
+  display: none;
+}
+
 :deep(.item-name) {
   flex-grow: 0;
 }

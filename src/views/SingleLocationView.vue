@@ -60,7 +60,7 @@ watch(
         </li>
       </ul>
     </div>
-    <section>
+    <section v-if="location.residents.length > 0">
       <h2 class="title">Residents</h2>
       <DataList
         :residentsArr="location.residents"

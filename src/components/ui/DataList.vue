@@ -157,7 +157,7 @@ watchEffect(() => {
     </li>
   </ul>
   <v-pagination
-    v-if="iterableData.array.length <= 6"
+    v-if="residentsArr || episodeCharsArr || episodesArr"
     :length="totalPages"
     v-model="currentPage"
     class="mt-5"

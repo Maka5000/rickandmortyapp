@@ -75,7 +75,7 @@ watch(
       loading.value = false;
     }
   },
-  {immediate : route.query.page ? true : false}
+  { immediate: route.query.page ? true : false }
 );
 </script>
 
@@ -84,12 +84,14 @@ watch(
     <h2 class="page-title">Characters</h2>
     <v-progress-circular v-if="loading" indeterminate></v-progress-circular>
     <ErrorPage v-if="error" :errMsg="error" />
-    <DataList
-      v-if="characters.data.length > 0 && loading === false"
-      :charactersArr="characters.data"
-      gridCols="4"
-      imgMaxWidth="100px"
-    />
+    <div class="list-wrapper">
+      <DataList
+        v-if="characters.data.length > 0 && loading === false"
+        :charactersArr="characters.data"
+        gridCols="4"
+        imgMaxWidth="100px"
+      />
+    </div>
     <v-pagination
       v-if="characters.data.length > 0"
       :length="apiInfo.pages"
@@ -110,5 +112,21 @@ watch(
 
 :deep(.data-list) {
   margin-top: 50px;
+}
+
+.list-wrapper {
+  min-height: 580px;
+}
+
+@media only screen and (max-width: 1420px) {
+  .list-wrapper {
+    min-height: 980px;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .list-wrapper {
+    min-height: 1180px;
+  }
 }
 </style>
