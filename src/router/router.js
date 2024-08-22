@@ -5,6 +5,7 @@ import EpisodesView from "../views/EpisodesView.vue";
 import SingleEpisodeView from "../views/SingleEpisodeView.vue";
 import LocationsView from "../views/LocationsView.vue";
 import SingleLocationView from "../views/SingleLocationView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,15 +27,23 @@ const router = createRouter({
     },
     {
       path: "/episode/:id",
+      name : "single-episode-view",
       component: SingleEpisodeView,
     },
     {
       path: "/locations",
+      name: "locations-view",
       component: LocationsView
     },
     {
       path: "/location/:id",
+      name: "single-location-view",
       component: SingleLocationView
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFoundView
     }
   ],
 });
