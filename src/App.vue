@@ -12,7 +12,7 @@ import NavBar from "./components/ui/NavBar.vue";
     <footer>
       <ul class="footer-list">
         <li class="footer-list-item">
-          <a class="footer-link github" href="https://github.com/Maka5000"></a>
+          <a class="footer-link github" href="https://github.com/Maka5000/rickandmortyapp"></a>
         </li>
         <li class="footer-list-item">
           <a
