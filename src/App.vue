@@ -1,30 +1,125 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from "vue-router";
+import NavBar from "./components/ui/NavBar.vue";
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container">
+    <NavBar />
+    <main>
+      <RouterView></RouterView>
+    </main>
+    <footer>
+      <ul class="footer-list">
+        <li class="footer-list-item">
+          <a class="footer-link github" href="https://github.com/Maka5000/rickandmortyapp"></a>
+        </li>
+        <li class="footer-list-item">
+          <a
+            class="footer-link linkedin"
+            href="https://www.linkedin.com/in/magzhanhasenov/"
+          ></a>
+        </li>
+      </ul>
+    </footer>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  min-height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+main {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #dfdfdf;
+  min-height: 880px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+:deep(div.main_div) {
+  max-width: 1050px;
+  width: 100%;
+  margin-top: 50px;
+  flex-grow: 1;
+}
+
+footer {
+  background-color: var(--color-main);
+  grid-column: span 2;
+}
+
+.footer-list {
+  list-style-type: none;
+  display: flex;
+  padding: 10px;
+  column-gap: 10px;
+  justify-content: end;
+}
+
+.footer-link {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+}
+
+.footer-link.github {
+  background-image: url("/github.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(1);
+}
+
+.footer-link.linkedin {
+  background-image: url("/linkedin.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(1);
+}
+
+@media only screen and (max-width: 1530px) {
+  :deep(div.main_div) {
+    max-width: 1000px;
+  }
+}
+
+@media only screen and (max-width: 1420px) {
+  :deep(div.main_div) {
+    max-width: 750px;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  :deep(div.main_div) {
+    max-width: 500px;
+  }
+}
+
+@media only screen and (max-width: 825px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  :deep(.sidebar) {
+    display: none;
+  }
+
+  :deep(div.main_div) {
+    max-width: 400px;
+    margin-top: 58px;
+  }
+
+  :deep(.page-title) {
+    font-size: 3rem;
+  }
+
+  .footer-list {
+    justify-content: center;
+  }
 }
 </style>

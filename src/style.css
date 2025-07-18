@@ -1,79 +1,90 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+* {
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: "Comic Neue";
+  font-style: normal;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+:root {
+  --color-main: black;
+  --color-themed: #10e6b0;
+  --color-main-brighter: #363535;
+  --card-shadow: 0px 0px 9px -2px rgba(0, 0, 0.2);
+
+  --text-size-extra: 4rem;
+  --text-size-large: 3.12rem;
+  --text-size-medium-large: 3rem;
+  --text-size-big: 2rem;
+  --text-size-medium: 1.6rem;
+  --text-size-small: 1.3rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
+.container {
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 1536px;
 }
 
-@media (prefers-color-scheme: light) {
+.v-pagination__item {
+  background-color: var(--color-main);
+  color: var(--color-themed);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+.v-pagination__item > .v-btn {
+  font-size: 1.5rem;
+}
+
+.v-pagination__item:hover {
+  background-color: var(--color-themed);
+  color: var(--color-main);
+}
+
+.v-pagination__item--is-active {
+  background-color: var(--color-themed);
+  color: var(--color-main);
+}
+
+.v-pagination__item:has(.v-btn--disabled) {
+  background-color: transparent;
+}
+
+.v-pagination__item--is-active:has(.v-btn--disabled) {
+  background-color: var(--color-themed);
+}
+
+.v-pagination__item > .v-btn--disabled {
+  opacity: 100%;
+  color: var(--color-main);
+}
+
+.v-pagination__item > .v-btn > .v-btn__overlay {
+  opacity: 0;
+}
+
+@media only screen and (max-width: 1420px) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --text-size-large: 2.5rem;
   }
-  a:hover {
-    color: #747bff;
+}
+
+@media only screen and (max-width: 1060px) {
+  :root {
+    --text-size-extra: 3rem;
+    --text-size-large: 2rem;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@media only screen and (max-width: 825px) {
+  .v-btn--size-default {
+    --v-btn-height: 15px !important;
+  }
+
+  .v-pagination__item > .v-btn {
+    font-size: 1rem;
   }
 }
